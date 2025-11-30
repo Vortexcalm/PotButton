@@ -1,0 +1,9 @@
+## Interface: 80200
+## Title: PotButton
+## Author: Vortexcalm
+## Version 8.2.0.0
+## Notes: Creates an easily changeable potion/food key
+## SavedVariablesPerCharacter: PotButton
+
+PotButtonConfig.xml
+PotButton.lua

@@ -1,0 +1,219 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Script file="PotButtonConfig.lua"/>
+
+	<Button name="PotButtonConfig_EntryButtonTemplate" virtual="true">
+		<Size><AbsDimension x="240" y="16"/></Size>
+		<NormalFont style="GameFontHighlightLeft" />
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentBackground">
+					<Color r="1.0" g="1.0" b="1.0" a="0.2"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnClick>PotButtonConfig_EntryClick(self)</OnClick>
+		</Scripts>
+	</Button>
+
+	<EditBox name="PotButtonConfig_EditBoxTemplate" font="GameFontNormal" autoFocus="false" virtual="true">
+		<Backdrop bgFile="Interface\TutorialFrame\TutorialFrameBackground" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+			<EdgeSize><AbsValue val="16"/></EdgeSize>
+			<TileSize><AbsValue val="32"/></TileSize>
+			<BackgroundInsets><AbsInset left="5" right="5" top="5" bottom="5"/></BackgroundInsets>
+			<TextInsets><AbsInset left="8" right="5" top="5" bottom="5"/></TextInsets>
+		</Backdrop>
+	</EditBox>
+	
+	<Frame name="PotButtonConfigFrame" parent="UIParent" frameStrata="HIGH" toplevel="true" enableKeyboard="true" enableMouse="true" movable="true" alpha="1.0">
+		<Size><AbsDimension x="305" y="360"/></Size>
+		<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="800" y="-300"/></Offset></Anchor></Anchors>
+		<Backdrop bgFile="Interface\TutorialFrame\TutorialFrameBackground" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+			<EdgeSize><AbsValue val="16"/></EdgeSize>
+			<TileSize><AbsValue val="32"/></TileSize>
+			<BackgroundInsets><AbsInset left="5" right="5" top="5" bottom="5"/></BackgroundInsets>
+		</Backdrop>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString name="$parent_txtTitle" inherits="GameFontNormalHuge" text="PotButton" justifyH="CENTER" justifyV="TOP">
+					<Size><AbsDimension x="250" y="22" /></Size>
+					<Anchors><Anchor point="TOP" x="0" y="-16" /></Anchors>
+				</FontString>
+				<FontString name="$parent_txtModifiers" inherits="GameFontNormalLarge" text="Modifiers" justifyH="LEFT" justifyV="TOP">
+					<Size><AbsDimension x="200" y="22" /></Size>
+					<Anchors><Anchor point="TOPLEFT" x="20" y="-60" /></Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="$parent_btnX" inherits="OptionsButtonTemplate" text="X">
+				<Size><AbsDimension x="25" y="25"/></Size>
+				<Anchors><Anchor point="TOPRIGHT"/></Anchors>
+				<Backdrop bgFile="Interface\TutorialFrame\TutorialFrameBackground" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+					<EdgeSize><AbsValue val="16"/></EdgeSize>
+					<TileSize><AbsValue val="32"/></TileSize>
+					<BackgroundInsets><AbsInset left="5" right="5" top="5" bottom="5"/></BackgroundInsets>
+				</Backdrop>
+				<Scripts><OnClick> PotButtonConfig_ButtonClick(self) </OnClick></Scripts>
+			</Button>
+
+			<Frame name="$parent_btnModifier" inherits="UIDropDownMenuTemplate">
+				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="90" y="-56"/></Offset></Anchor></Anchors>
+				<Scripts>
+					<OnLoad function="PotButtonConfig_dropMenuShow"/>
+					<OnShow function="PotButtonConfig_dropMenuShow"/>
+				</Scripts>
+			</Frame>
+
+			<Button name="$parent_btnCreate" inherits="OptionsButtonTemplate" text="Recreate">
+				<Size><AbsDimension x="70" y="40"/></Size>
+				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="227" y="-41"/></Offset></Anchor></Anchors>
+				<Scripts>
+					<OnClick> PotButtonConfig_ButtonClick(self) </OnClick>
+				</Scripts>
+			</Button>
+			
+			<ScrollFrame name="$parent_scrollBar" inherits="FauxScrollFrameTemplate">
+				<Size><AbsDimension x="250" y="106"/></Size>
+				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="16" y="-88"/></Offset></Anchor></Anchors>
+				<Backdrop bgFile="Interface\TutorialFrame\TutorialFrameBackground" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+					<EdgeSize><AbsValue val="16"/></EdgeSize>
+					<TileSize><AbsValue val="32"/></TileSize>
+					<BackgroundInsets><AbsInset left="5" right="5" top="5" bottom="5"/></BackgroundInsets>
+				</Backdrop>
+				<Scripts>
+					<OnVerticalScroll>
+						FauxScrollFrame_OnVerticalScroll(self,offset,16,PotButtonConfig_Update)
+					</OnVerticalScroll>
+				</Scripts>
+			</ScrollFrame>
+			<Button name="$parent_scrollEntry1" inherits="PotButtonConfig_EntryButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="PotButtonConfigFrame_scrollBar" relativePoint="TOPLEFT">
+						<Offset><AbsDimension x="8" y="-4" /></Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="$parent_scrollEntry2" inherits="PotButtonConfig_EntryButtonTemplate">
+				<Anchors><Anchor point="TOPLEFT" relativeTo="PotButtonConfigFrame_scrollEntry1" relativePoint="BOTTOMLEFT"/></Anchors>
+			</Button>
+			<Button name="$parent_scrollEntry3" inherits="PotButtonConfig_EntryButtonTemplate">
+				<Anchors><Anchor point="TOPLEFT" relativeTo="PotButtonConfigFrame_scrollEntry2" relativePoint="BOTTOMLEFT"/></Anchors>
+			</Button>
+			<Button name="$parent_scrollEntry4" inherits="PotButtonConfig_EntryButtonTemplate">
+				<Anchors><Anchor point="TOPLEFT" relativeTo="PotButtonConfigFrame_scrollEntry3" relativePoint="BOTTOMLEFT"/></Anchors>
+			</Button>
+			<Button name="$parent_scrollEntry5" inherits="PotButtonConfig_EntryButtonTemplate">
+				<Anchors><Anchor point="TOPLEFT" relativeTo="PotButtonConfigFrame_scrollEntry4" relativePoint="BOTTOMLEFT"/></Anchors>
+			</Button>
+			<Button name="$parent_scrollEntry6" inherits="PotButtonConfig_EntryButtonTemplate">
+				<Anchors><Anchor point="TOPLEFT" relativeTo="PotButtonConfigFrame_scrollEntry5" relativePoint="BOTTOMLEFT"/></Anchors>
+			</Button>
+
+			<Button name="$parent_btnAdd" inherits="OptionsButtonTemplate" text="+">
+				<Size><AbsDimension x="30" y="30"/></Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="PotButtonConfigFrame_scrollBar" relativePoint="BOTTOMLEFT">
+						<Offset><AbsDimension x="0" y="-5"/></Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick> PotButtonConfig_ButtonClick(self) </OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$parent_btnRemove" inherits="OptionsButtonTemplate" text="-">
+				<Size><AbsDimension x="30" y="30"/></Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="PotButtonConfigFrame_btnAdd" relativePoint="TOPRIGHT">
+						<Offset><AbsDimension x="5" y="0"/></Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick> PotButtonConfig_ButtonClick(self) </OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$parent_btnClear" inherits="OptionsButtonTemplate" text="Clear">
+				<Size><AbsDimension x="60" y="30"/></Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="PotButtonConfigFrame_btnRemove" relativePoint="TOPRIGHT">
+						<Offset><AbsDimension x="5" y="0"/></Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick> PotButtonConfig_ButtonClick(self) </OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$parent_btnDown" inherits="OptionsButtonTemplate" text="v">
+				<Size><AbsDimension x="30" y="30"/></Size>
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="PotButtonConfigFrame_scrollBar" relativePoint="BOTTOMRIGHT">
+						<Offset><AbsDimension x="0" y="-5"/></Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick> PotButtonConfig_ButtonClick(self) </OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$parent_btnUp" inherits="OptionsButtonTemplate" text="^">
+				<Size><AbsDimension x="30" y="30"/></Size>
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="PotButtonConfigFrame_btnDown" relativePoint="TOPLEFT">
+						<Offset><AbsDimension x="-5" y="0"/></Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick> PotButtonConfig_ButtonClick(self) </OnClick>
+				</Scripts>
+			</Button>			
+			<Frame name="$parent_AddFrame" hidden="true">
+				<Size><AbsDimension x="565" y="60"/></Size>
+				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="15" y="-239"/></Offset></Anchor></Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString name="$parent_txtAdd" inherits="GameFontNormalLarge" text="Add item" justifyH="LEFT" justifyV="TOP">
+							<Size><AbsDimension x="200" y="22" /></Size>
+							<Anchors><Anchor point="TOPLEFT" x="0" y="0" /></Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<EditBox name="$parent_ebxAdd" inherits="PotButtonConfig_EditBoxTemplate" autoFocus="true">
+						<Size><AbsDimension x="275" y="30" /></Size>
+						<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="0" y="-25" /></Offset></Anchor></Anchors>
+						<Scripts>
+							<OnTextChanged> PotButton_AddTextChanged() </OnTextChanged>
+						</Scripts>
+					</EditBox>
+					<Button name="$parent_btnOK" inherits="OptionsButtonTemplate" text="OK">
+						<Size><AbsDimension x="40" y="40"/></Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="PotButtonConfigFrame_AddFrame_ebxAdd" relativePoint="BOTTOMLEFT">
+								<Offset><AbsDimension x="0" y="-5"/></Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick> PotButtonConfig_ButtonClick(self) </OnClick>
+						</Scripts>
+					</Button>
+					<Button name="$parent_btnCancel" inherits="OptionsButtonTemplate" text="Cancel">
+						<Size><AbsDimension x="60" y="40"/></Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="PotButtonConfigFrame_AddFrame_btnOK" relativePoint="TOPRIGHT">
+								<Offset><AbsDimension x="5" y="0"/></Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick> PotButtonConfig_ButtonClick(self) </OnClick>
+						</Scripts>
+					</Button>
+
+				</Frames>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnDragStart> self:StartMoving() </OnDragStart>
+			<OnDragStop> self:StopMovingOrSizing() </OnDragStop>
+		</Scripts>
+	</Frame>
+</Ui>
